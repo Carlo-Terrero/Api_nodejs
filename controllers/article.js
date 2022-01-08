@@ -205,6 +205,35 @@ var controller = {
                 });
             }                     
         })        
+    },
+
+    delete: (req, res) => {
+        // Recoger id de la url
+        var articleId = req.params.id;
+
+        // Find and delete
+        Article.findOneAndDelete({ _id: articleId}, (err, articleRemoved) => {
+            if(err){
+                return res.status(500).send({
+                    status: 'Error',
+                    message: 'Error al borrar'
+                })
+            }
+
+            if(!articleRemoved){
+                return res.status(404).send({
+                  status: 'Error'  ,
+                  message: 'No se ha borrado el artículo, posiblemente no exista !!!'
+                });
+            }
+
+            return res.status(200).send({
+                status: 'Success',
+                article: articleRemoved
+            })
+        });
+
+        
     }
 
 }; // end controller

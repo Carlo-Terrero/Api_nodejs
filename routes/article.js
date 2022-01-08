@@ -16,6 +16,7 @@ route.post('/save', ArticleController.save);
 route.get('/articles/:last?', ArticleController.getArticles); //el parametro :last? hace que se vuelva opcional que se ponga en la url
 route.get('/article/:id', ArticleController.getArticle);
 route.put('/article/:id', ArticleController.update);
+route.delete('/article/:id', ArticleController.delete);
 
 // lo Exportamos
 module.exports = route;
