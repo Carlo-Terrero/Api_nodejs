@@ -6,6 +6,7 @@ var fs =  require('fs');//Nos permita borrar archivos de nustros ficheros.
 var path = require('path'); //Es de modulo de node para sacar el path o la ruta de un archivo en el sistema de archivos de servidor.
 
 var Article = require('../models/article'); //Con este modelo (objeto) vamos crear y guardar los objetos en la base de datos.
+const { exists } = require('../models/article');
 
 /*Se pueden crear metodos por separado, pero parece mas optimo crear un objeto. Definiremos sus propiedades y dentro de estas 
 una funcion anónima, así al llamar a la propiedad se ejecuta la función*/
@@ -301,7 +302,25 @@ var controller = {
 
             
         }
-    } // end upload file
+    }, // end upload file
+
+    getImage: (req, res) => {
+        var file = req.params.image;
+        var path_file = './upload/articles/' + file
+
+        //Comprobamos si el archivo existe
+        //El segundo parametro de de la mayoria de los metodos son funciones de callBack () => {} ó (req, res) => {}
+        fs.exists(path_file, (exists) => {
+            if(exists){
+                return res.sendFile(path.resolve(path_file));
+            }else{
+                return res.status(404).send({
+                    status: 'Error',
+                    message: 'La imagen no existe'
+                });
+            }            
+        });
+    },
 
 }; // end controller
 
