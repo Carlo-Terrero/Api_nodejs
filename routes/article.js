@@ -6,6 +6,9 @@ var ArticleController = require('../controllers/article');
 
 var route = express.Router();
 
+var multiparty = require('connect-multiparty');
+var md_upload = multiparty({ uploadDir: './upload/articles'}); // Esta es la configuracion principal (es un midelwere)
+
 // --> Rutas de prueba
 //Seleccionamos la accion http (post, get, etc), luego la ruta y el metodo, el cual lo adquirimos del objeto nameObjController.
 route.post('/test-de-controlador', ArticleController.datosCurso);
@@ -17,6 +20,7 @@ route.get('/articles/:last?', ArticleController.getArticles); //el parametro :la
 route.get('/article/:id', ArticleController.getArticle);
 route.put('/article/:id', ArticleController.update);
 route.delete('/article/:id', ArticleController.delete);
+route.post('/upload-image/:id', md_upload, ArticleController.upload); //Ahora esta ruta acepta archivos que se le envien.
 
 // lo Exportamos
 module.exports = route;
