@@ -19,6 +19,16 @@ app.use(bodyParser.json());    //Convertimos las peticiones de datos a json
 
 
 // CORS -> para permitir peticiones del frontend
+// Es el acceso cruzado entre dominios(para que el el cliente pueda consumir la API)
+// Configurar cabeceras y cors
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Authorization, X-API-KEY, Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Request-Method');
+    res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+    res.header('Allow', 'GET, POST, OPTIONS, PUT, DELETE');
+    next();
+});
+
 
 
 // añadir prefijos a rutas / cargar rutas

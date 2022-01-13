@@ -22,6 +22,7 @@ route.put('/article/:id', ArticleController.update);
 route.delete('/article/:id', ArticleController.delete);
 route.post('/upload-image/:id', md_upload, ArticleController.upload); //Ahora esta ruta acepta archivos que se le envien.
 route.get('/get-image/:image', ArticleController.getImage);
+route.get('/search/:search', ArticleController.search);
 
 
 // lo Exportamos
